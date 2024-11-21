@@ -18,5 +18,11 @@ function Initialize-MauiDev {
     # Install dotnet tool for maui checking
     dotnet tool install -g Redth.Net.Maui.Check
 
+    # Android
+    if ($Android) {
+        winget install Microsoft.OpenJDK.21
+        dotnet workload install maui-android
+    }
+
     Write-Output "DONE"
 }
