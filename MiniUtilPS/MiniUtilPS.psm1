@@ -1,26 +1,13 @@
-<#
-.SYNOPSIS
-PowerShell modle
-.DESCRIPTION
-Author: Chun Pan Yung
-#>
-$folders = @('Public')
-
-foreach ( $folder in $folders) {
-
-    $files = Get-ChildItem -Path "$PSScriptRoot\$folder\*.ps1" -Recurse
-
-    Foreach ( $thisFile in $files ) {
-        Try {
-            Write-Verbose ('dot sourcing {0}' -f $thisFile.FullName)
-            . $thisFile.fullname
-            if ( $folder -eq 'Public' ) {
-                Export-ModuleMember -Function $thisFile.Basename
-                $publicFunction += $thisFile.BaseName
-            }
-        }
-        Catch {
-            Write-Error ("Failed to import function {0}: {1}" -f $thisFile.fullname, $folder)
-        }
+# Get public and private function definition files.
+$Public  = @(Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue)
+$Private = @(Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue)
+# Dot source the files
+foreach ($import in @($Public + $Private)) {
+    try {
+        . $import.FullName
+    } catch {
+        Write-Error -Message "Failed to import function $($import.FullName): $_"
     }
 }
+
+Export-ModuleMember -Function $Public.Basename
