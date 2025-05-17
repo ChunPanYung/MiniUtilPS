@@ -3,7 +3,7 @@ function Initialize-MauiDev {
     .SYNOPSIS
     Setup dotnet and maui development environment with Visual Studio Code
     .EXAMPLE
-    Install-DotNet
+    Initialize-MauiDev
     .OUTPUTS
     none
     #>
