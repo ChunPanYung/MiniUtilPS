@@ -1,9 +1,9 @@
-function Initialize-SSH {
+function Install-SSH {
     <#
     .SYNOPSIS
     Setup and configure SSH servers and client.
     .EXAMPLE
-    Initialize-SSH
+    Install-SSH
     .OUTPUTS
     none
     #>
