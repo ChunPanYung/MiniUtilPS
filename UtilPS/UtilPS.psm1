@@ -9,5 +9,5 @@ foreach ($import in @($Public + $Private)) {
         Write-Error -Message "Failed to import function $($import.FullName): $_"
     }
 }
-# Only export public function
+
 Export-ModuleMember -Function $Public.Basename
